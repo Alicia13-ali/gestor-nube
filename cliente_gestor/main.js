@@ -1,5 +1,3 @@
-// IVY
-
 // rest.get(url, callback) --> leer datos
 // rest.post(url, body, callback) --> crear datos
 // rest.put(url, body, callback) --> modificar datos
@@ -409,24 +407,6 @@ function CargarResenyas(id){
         }
     });
 }
-
-function CrearArea(){
-
-    var codigo = document.getElementById("codigo").value;
-    var nombre = document.getElementById("nombre").value;
-
-    rest.post(conToken("/api/area_salud"), {codigo: codigo, nombre: nombre, gestor: idGestor}, function(status, response){
-        if (sesionCaducada(status, response)) return;
-
-        if(status == 201){
-            alert("Creado correctamente.");
-        }
-        else{
-            alert("No se ha podido crear");
-        }
-    });
-}
-
 
 /* =====================================================================
    P3 - PARTE 1: MINISTERIO DE SANIDAD
