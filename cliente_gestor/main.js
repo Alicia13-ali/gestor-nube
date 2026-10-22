@@ -907,7 +907,6 @@ function ContarArea() {
 function PorcentajeFinalizadas(){
 
     var idArea = 1;
-    alert("El área es" + AREAS[idArea] );
 
     fetch(URL_MINISTERIO)
     .then(function(respuesta){
