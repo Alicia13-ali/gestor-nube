@@ -864,7 +864,7 @@ function pintarRanking(ranking) {
 }
 
 
-// EXAMEN 
+// EXAMEN EJERCICIO 1
 
 function ContarArea() {
 
@@ -897,6 +897,59 @@ function ContarArea() {
     .catch(function(error){
 
         alert("Error al obtener los datos del Ministerio");
+
+    });
+
+}
+
+// EXAMEN EJERCICIO 2
+
+function PorcentajeFinalizadas(){
+
+    var idArea = 1;
+    alert("El área es" + AREAS[idArea] );
+
+    fetch(URL_MINISTERIO)
+    .then(function(respuesta){
+        return respuesta.json();
+    })
+    .then(function(envios){
+
+        var total = 0;
+        var finalizadas = 0;
+
+        envios.forEach(function(envio){
+
+            if(!esEnvioValido(envio)) return;
+
+            if(Number(envio.id_area) !== idArea) return;
+
+            envio.datos.forEach(function(reserva){
+
+                if(esReservaValida(reserva)){
+
+                    total++;
+
+                    if(!esFechaVacia(reserva.fecha_fin)){
+                        finalizadas++;
+                    }
+
+                }
+
+            });
+
+        });
+
+        var porcentaje = 0;
+
+        if(total > 0){
+            porcentaje = (finalizadas / total) * 100;
+        }
+
+        var mensaje = "De las reservas de ese área, el " + porcentaje.toFixed(2) + " están finalizadas"
+            
+        alert(mensaje);
+        mensajeMinisterio(mensaje);
 
     });
 
