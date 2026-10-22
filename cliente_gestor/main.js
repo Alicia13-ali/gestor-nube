@@ -864,4 +864,42 @@ function pintarRanking(ranking) {
 }
 
 
+// EXAMEN 
+
+function ContarArea() {
+
+    var idArea = document.getElementById("id_area_buscar").value;
+
+    fetch(URL_MINISTERIO)
+    .then(function(respuesta){
+        return respuesta.json();
+    })
+    .then(function(envios){
+
+        var contador = 0;
+
+        envios.forEach(function(envio){
+
+            if(!esEnvioValido(envio)) return;
+
+            if(Number(envio.id_area) === Number(idArea)){
+                contador++;
+            }
+
+        });
+
+        var mensaje = "Existen " + contador + " reservas del área de " +   AREAS[idArea] ; 
+
+        alert(mensaje);
+        mensajeMinisterio(mensaje);
+
+    })
+    .catch(function(error){
+
+        alert("Error al obtener los datos del Ministerio");
+
+    });
+
+}
+
 
