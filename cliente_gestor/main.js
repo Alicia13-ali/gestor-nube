@@ -602,9 +602,7 @@ function enviarAlMinisterio(datos, noEnviadas) {
 }
 
 
-/* =====================================================================
-   (b) VALIDAR LOS DATOS
-   ---------------------------------------------------------------------
+/* (b) VALIDAR LOS DATOS
    El GET del Ministerio trae datos de TODOS los grupos y puede haber de todo:
    campos vacíos, fechas mal escritas, áreas que no existen, envíos repetidos...
    NO nos fiamos: cada envío y cada reserva se comprueba antes de contarla.
@@ -613,7 +611,7 @@ function enviarAlMinisterio(datos, noEnviadas) {
        null              → el dato es CORRECTO
        "texto del fallo" → el dato es INCORRECTO, y el texto dice POR QUÉ
    (así en la consola se ve el motivo de cada descarte)
-   ===================================================================== */
+ */
 
 // ¿Es un texto con algo escrito? ("" o "   " o un número → false)
 function esTextoNoVacio(x) {
