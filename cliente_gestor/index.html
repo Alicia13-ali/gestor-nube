@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,10 +9,12 @@
     <style>
         /* ================= COLORES DE LA APP ================= */
         :root {
-            --primario: #0e7c7b;        /* verde azulado del gestor (el sanitario es azul) */
+            --primario: #0e7c7b;
+            /* verde azulado del gestor (el sanitario es azul) */
             --primario-osc: #095857;
             --primario-claro: #e3f4f3;
-            --acento: #0e9384;          /* verde azulado */
+            --acento: #0e9384;
+            /* verde azulado */
             --rojo: #c62828;
             --rojo-claro: #fdecea;
             --verde: #2e7d32;
@@ -27,7 +30,9 @@
             --sombra: 0 1px 3px rgba(16, 24, 40, .08), 0 1px 2px rgba(16, 24, 40, .04);
         }
 
-        * { box-sizing: border-box; }
+        * {
+            box-sizing: border-box;
+        }
 
         body {
             margin: 0;
@@ -38,10 +43,14 @@
             line-height: 1.45;
         }
 
-        h2, h3 { margin: 0; }
+        h2,
+        h3 {
+            margin: 0;
+        }
 
         /* ================= LOGIN Y REGISTRO ================= */
-        #login, #registro {
+        #login,
+        #registro {
             max-width: 420px;
             margin: 48px auto;
             padding: 28px 24px;
@@ -72,7 +81,8 @@
             font-size: 20px;
         }
 
-        #login h2, #registro h2 {
+        #login h2,
+        #registro h2 {
             font-size: 20px;
             margin-bottom: 18px;
         }
@@ -86,7 +96,9 @@
             margin-bottom: 4px;
         }
 
-        input, select, textarea {
+        input,
+        select,
+        textarea {
             font: inherit;
             font-size: 15px;
             padding: 9px 11px;
@@ -97,14 +109,21 @@
             max-width: 100%;
         }
 
-        input:focus, select:focus {
+        input:focus,
+        select:focus {
             outline: none;
             border-color: var(--primario);
             box-shadow: 0 0 0 3px var(--primario-claro);
         }
 
-        .campo { margin-bottom: 14px; }
-        .campo input, .campo select { width: 100%; }
+        .campo {
+            margin-bottom: 14px;
+        }
+
+        .campo input,
+        .campo select {
+            width: 100%;
+        }
 
         /* ================= BOTONES (del tamaño de su texto) ================= */
         button {
@@ -119,17 +138,42 @@
             cursor: pointer;
             white-space: nowrap;
         }
-        button:hover  { background: var(--primario-osc); }
 
-        .btn-secundario { background: #fff; color: var(--primario); border-color: var(--borde); }
-        .btn-secundario:hover { background: var(--primario-claro); }
+        button:hover {
+            background: var(--primario-osc);
+        }
 
-        .btn-peligro { background: #fff; color: var(--rojo); border-color: #f2c4c4; }
-        .btn-peligro:hover { background: var(--rojo-claro); }
+        .btn-secundario {
+            background: #fff;
+            color: var(--primario);
+            border-color: var(--borde);
+        }
 
-        .btn-sm { padding: 5px 10px; font-size: 13px; }
+        .btn-secundario:hover {
+            background: var(--primario-claro);
+        }
 
-        .botones { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
+        .btn-peligro {
+            background: #fff;
+            color: var(--rojo);
+            border-color: #f2c4c4;
+        }
+
+        .btn-peligro:hover {
+            background: var(--rojo-claro);
+        }
+
+        .btn-sm {
+            padding: 5px 10px;
+            font-size: 13px;
+        }
+
+        .botones {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 6px;
+        }
 
         /* ================= CABECERA DE LA APP ================= */
         .barra {
@@ -146,8 +190,14 @@
             box-shadow: 0 2px 6px rgba(0, 0, 0, .12);
         }
 
-        .barra .marca { margin: 0; color: #fff; }
-        .barra .marca-icono { background: rgba(255, 255, 255, .18); }
+        .barra .marca {
+            margin: 0;
+            color: #fff;
+        }
+
+        .barra .marca-icono {
+            background: rgba(255, 255, 255, .18);
+        }
 
         .usuario {
             display: flex;
@@ -161,7 +211,10 @@
             border-color: rgba(255, 255, 255, .3);
             color: #fff;
         }
-        .usuario .btn-barra:hover { background: rgba(255, 255, 255, .28); }
+
+        .usuario .btn-barra:hover {
+            background: rgba(255, 255, 255, .28);
+        }
 
         /* ================= CONTENIDO ================= */
         .contenido {
@@ -170,8 +223,14 @@
             padding: 20px;
         }
 
-        .saludo { margin: 4px 0 18px; font-size: 20px; }
-        .saludo span { color: var(--primario); }
+        .saludo {
+            margin: 4px 0 18px;
+            font-size: 20px;
+        }
+
+        .saludo span {
+            color: var(--primario);
+        }
 
         /* Cada bloque es una tarjeta blanca */
         .tarjeta {
@@ -196,7 +255,11 @@
             color: var(--primario-osc);
         }
 
-        .subtexto { color: var(--gris); font-size: 13px; margin: 2px 0 0; }
+        .subtexto {
+            color: var(--gris);
+            font-size: 13px;
+            margin: 2px 0 0;
+        }
 
         /* Dos tarjetas lado a lado en pantallas grandes */
         .columnas {
@@ -204,8 +267,14 @@
             grid-template-columns: 2fr 1fr;
             gap: 18px;
         }
-        .columnas .tarjeta { margin-bottom: 0; }
-        .columnas + * { margin-top: 18px; }
+
+        .columnas .tarjeta {
+            margin-bottom: 0;
+        }
+
+        .columnas+* {
+            margin-top: 18px;
+        }
 
         /* Filtros en rejilla */
         .filtros {
@@ -214,7 +283,10 @@
             gap: 12px;
             margin-bottom: 14px;
         }
-        .filtros select { width: 100%; }
+
+        .filtros select {
+            width: 100%;
+        }
 
         #ministerio_estado {
             margin: 10px 0 0;
@@ -223,7 +295,10 @@
         }
 
         /* ================= TABLAS ================= */
-        .tabla-scroll { width: 100%; overflow-x: auto; }
+        .tabla-scroll {
+            width: 100%;
+            overflow-x: auto;
+        }
 
         table {
             width: 100%;
@@ -248,14 +323,31 @@
             vertical-align: middle;
         }
 
-        tbody tr:hover { background: #fafcff; }
-        tbody tr:last-child td { border-bottom: none; }
+        tbody tr:hover {
+            background: #fafcff;
+        }
 
-        td button { margin: 2px 4px 2px 0; }
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        td button {
+            margin: 2px 4px 2px 0;
+        }
 
         /* Ranking */
-        #tabla_ranking td:first-child { width: 48px; text-align: center; font-weight: 700; color: var(--gris); }
-        #tabla_ranking td:last-child, #tabla_ranking th:last-child { text-align: right; font-weight: 600; }
+        #tabla_ranking td:first-child {
+            width: 48px;
+            text-align: center;
+            font-weight: 700;
+            color: var(--gris);
+        }
+
+        #tabla_ranking td:last-child,
+        #tabla_ranking th:last-child {
+            text-align: right;
+            font-weight: 600;
+        }
 
         /* Etiquetas de estado de los recursos */
         .estado {
@@ -266,32 +358,84 @@
             font-weight: 600;
             white-space: nowrap;
         }
-        .estado-0 { background: var(--verde-claro); color: var(--verde); }
-        .estado-1 { background: var(--rojo-claro);  color: var(--rojo); }
-        .estado-2 { background: var(--ambar-claro); color: var(--ambar); }
+
+        .estado-0 {
+            background: var(--verde-claro);
+            color: var(--verde);
+        }
+
+        .estado-1 {
+            background: var(--rojo-claro);
+            color: var(--rojo);
+        }
+
+        .estado-2 {
+            background: var(--ambar-claro);
+            color: var(--ambar);
+        }
 
         /* Colores de las reservas (antes eran fondos fuertes) */
-        tr.reserva-white td:first-child { border-left: 4px solid #cfd8e3; }
-        tr.reserva-green               { background: var(--verde-claro); }
-        tr.reserva-green td:first-child { border-left: 4px solid var(--verde); }
-        tr.reserva-blue                { background: var(--azul-claro); }
-        tr.reserva-blue td:first-child  { border-left: 4px solid #1565c0; }
-        tr.reserva-red                 { background: var(--rojo-claro); }
-        tr.reserva-red td:first-child   { border-left: 4px solid var(--rojo); }
+        tr.reserva-white td:first-child {
+            border-left: 4px solid #cfd8e3;
+        }
 
-        .leyenda { display: flex; flex-wrap: wrap; gap: 12px; font-size: 12px; color: var(--gris); }
+        tr.reserva-green {
+            background: var(--verde-claro);
+        }
+
+        tr.reserva-green td:first-child {
+            border-left: 4px solid var(--verde);
+        }
+
+        tr.reserva-blue {
+            background: var(--azul-claro);
+        }
+
+        tr.reserva-blue td:first-child {
+            border-left: 4px solid #1565c0;
+        }
+
+        tr.reserva-red {
+            background: var(--rojo-claro);
+        }
+
+        tr.reserva-red td:first-child {
+            border-left: 4px solid var(--rojo);
+        }
+
+        .leyenda {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            font-size: 12px;
+            color: var(--gris);
+        }
+
         .leyenda span::before {
             content: "";
             display: inline-block;
-            width: 10px; height: 10px;
+            width: 10px;
+            height: 10px;
             border-radius: 3px;
             margin-right: 5px;
             vertical-align: -1px;
         }
-        .ley-pendiente::before  { background: var(--verde); }
-        .ley-uso::before        { background: #1565c0; }
-        .ley-pasada::before     { background: var(--rojo); }
-        .ley-finalizada::before { background: #cfd8e3; }
+
+        .ley-pendiente::before {
+            background: var(--verde);
+        }
+
+        .ley-uso::before {
+            background: #1565c0;
+        }
+
+        .ley-pasada::before {
+            background: var(--rojo);
+        }
+
+        .ley-finalizada::before {
+            background: #cfd8e3;
+        }
 
         /* Ficha del recurso: campos en rejilla */
         .ficha {
@@ -299,47 +443,124 @@
             grid-template-columns: repeat(3, 1fr);
             gap: 12px 16px;
         }
-        .ficha .campo { margin-bottom: 0; }
 
-        .volver { margin-bottom: 14px; }
+        .ficha .campo {
+            margin-bottom: 0;
+        }
+
+        .volver {
+            margin-bottom: 14px;
+        }
 
         /* ================= MÓVIL (768px o menos) ================= */
         @media (max-width: 768px) {
 
-            body { font-size: 14px; }
+            body {
+                font-size: 14px;
+            }
 
-            #login, #registro { margin: 20px 12px; padding: 22px 18px; }
+            #login,
+            #registro {
+                margin: 20px 12px;
+                padding: 22px 18px;
+            }
 
-            .barra { padding: 10px 12px; }
-            .barra .marca span.texto-marca { display: none; }   /* solo el icono */
-            .usuario #nombre_gestor { display: none; }          /* el nombre ya sale en el saludo */
+            .barra {
+                padding: 10px 12px;
+            }
 
-            .contenido { padding: 12px; }
-            .saludo { font-size: 17px; margin-bottom: 12px; }
+            .barra .marca span.texto-marca {
+                display: none;
+            }
 
-            .tarjeta { padding: 14px; margin-bottom: 12px; }
+            /* solo el icono */
+            .usuario #nombre_gestor {
+                display: none;
+            }
 
-            .columnas { grid-template-columns: 1fr; gap: 12px; }
-            .columnas + * { margin-top: 12px; }
+            /* el nombre ya sale en el saludo */
 
-            .filtros { grid-template-columns: 1fr 1fr; gap: 10px; }
-            .ficha   { grid-template-columns: 1fr 1fr; }
+            .contenido {
+                padding: 12px;
+            }
 
-            th, td { padding: 8px 4px; }
-            th { font-size: 11px; letter-spacing: 0; }
-            table { font-size: 13px; }
-            td button { padding: 4px 7px; font-size: 12px; margin: 2px 0; display: block; }
-            .estado { font-size: 11px; padding: 2px 7px; white-space: normal; }
+            .saludo {
+                font-size: 17px;
+                margin-bottom: 12px;
+            }
+
+            .tarjeta {
+                padding: 14px;
+                margin-bottom: 12px;
+            }
+
+            .columnas {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+
+            .columnas+* {
+                margin-top: 12px;
+            }
+
+            .filtros {
+                grid-template-columns: 1fr 1fr;
+                gap: 10px;
+            }
+
+            .ficha {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            th,
+            td {
+                padding: 8px 4px;
+            }
+
+            th {
+                font-size: 11px;
+                letter-spacing: 0;
+            }
+
+            table {
+                font-size: 13px;
+            }
+
+            td button {
+                padding: 4px 7px;
+                font-size: 12px;
+                margin: 2px 0;
+                display: block;
+            }
+
+            .estado {
+                font-size: 11px;
+                padding: 2px 7px;
+                white-space: normal;
+            }
 
             /* Columnas que se ocultan en el móvil para que todo quepa sin scroll lateral */
-            #tabla_recursos th:nth-child(2), #tabla_recursos td:nth-child(2),   /* Categoría  */
-            #tabla_recursos th:nth-child(4), #tabla_recursos td:nth-child(4),   /* Ubicación  */
-            #tabla_reservas th:nth-child(3), #tabla_reservas td:nth-child(3)    /* F. Petición */
-            { display: none; }
+            #tabla_recursos th:nth-child(2),
+            #tabla_recursos td:nth-child(2),
+            /* Categoría  */
+            #tabla_recursos th:nth-child(4),
+            #tabla_recursos td:nth-child(4),
+            /* Ubicación  */
+            #tabla_reservas th:nth-child(3),
+            #tabla_reservas td:nth-child(3)
+
+            /* F. Petición */
+                {
+                display: none;
+            }
         }
 
         @media (max-width: 340px) {
-            .filtros, .ficha { grid-template-columns: 1fr; }
+
+            .filtros,
+            .ficha {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 
@@ -351,7 +572,9 @@
 
     <!-- ================= LOGIN ================= -->
     <div id="login">
-        <div class="marca"><div class="marca-icono">✚</div> Gestión de Recursos Sanitarios</div>
+        <div class="marca">
+            <div class="marca-icono">✚</div> Gestión de Recursos Sanitarios
+        </div>
         <h2>Acceso de gestores</h2>
 
         <div class="campo">
@@ -371,7 +594,9 @@
 
     <!-- ================= REGISTRO / EDICIÓN DE GESTOR ================= -->
     <div id="registro" style="display:none;">
-        <div class="marca"><div class="marca-icono">✚</div> Gestión de Recursos Sanitarios</div>
+        <div class="marca">
+            <div class="marca-icono">✚</div> Gestión de Recursos Sanitarios
+        </div>
         <h2>Datos del gestor</h2>
 
         <div class="campo">
@@ -402,7 +627,9 @@
     <div id="inicio" style="display:none;">
 
         <header class="barra">
-            <div class="marca"><div class="marca-icono">✚</div><span class="texto-marca">Gestión de Recursos Sanitarios</span></div>
+            <div class="marca">
+                <div class="marca-icono">✚</div><span class="texto-marca">Gestión de Recursos Sanitarios</span>
+            </div>
             <div class="usuario">
                 <span id="nombre_gestor"></span>
                 <button onclick="EditarDatos()" class="btn-sm btn-barra">Mis datos</button>
@@ -415,33 +642,51 @@
             <h2 class="saludo">Panel del gestor</h2>
 
 
-                <!-- P3 - PARTE 1: MINISTERIO DE SANIDAD -->
-                <section class="tarjeta">
-                    <div class="tarjeta-cabecera">
-                        <div>
-                            <h3>Ranking del Ministerio de Sanidad</h3>
-                            <p class="subtexto">Volumen de reservas por área médica</p>
-                        </div>
-                        <div class="botones">
-                            <button onclick="EnviarReservasMinisterio()" class="btn-sm">Enviar reservas</button>
-                            <button onclick="cargarRanking()" class="btn-sm btn-secundario">Actualizar</button>
-                        </div>
+            <!-- P3 - PARTE 1: MINISTERIO DE SANIDAD -->
+            <section class="tarjeta">
+                <div class="tarjeta-cabecera">
+                    <div>
+                        <h3>Ranking del Ministerio de Sanidad</h3>
+                        <p class="subtexto">Volumen de reservas por área médica</p>
                     </div>
+                    <div class="botones">
+                        <button onclick="EnviarReservasMinisterio()" class="btn-sm">Enviar reservas</button>
+                        <button onclick="cargarRanking()" class="btn-sm btn-secundario">Actualizar</button>
+                    </div>
+                </div>
 
-                    <div class="tabla-scroll">
-                        <table id="tabla_ranking">
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Área médica</th>
-                                    <th>Reservas</th>
-                                </tr>
-                            </thead>
-                            <tbody id="ranking_cuerpo"></tbody>
-                        </table>
-                    </div>
-                    <p id="ministerio_estado"></p>
-                </section>
+                <div class="tabla-scroll">
+                    <table id="tabla_ranking">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Área médica</th>
+                                <th>Reservas</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ranking_cuerpo"></tbody>
+                    </table>
+                </div>
+                <p id="ministerio_estado"></p>
+
+                <!-- EXAMEN
+
+                <br>
+
+                <label>Id Área:</label>
+                <input type="number" id="id_area_buscar">
+
+                <button onclick="ContarArea()">
+                    Contar registros
+                </button>
+
+                <button onclick="ReservasFinalizadas()">
+                    Reservas finalizadas
+                </button>
+
+            -->
+
+            </section>
 
             <!-- BÚSQUEDA DE RECURSOS -->
             <section class="tarjeta">
@@ -522,7 +767,9 @@
     <div id="alta_recurso" style="display:none;">
 
         <header class="barra">
-            <div class="marca"><div class="marca-icono">✚</div><span class="texto-marca">Gestión de Recursos Sanitarios</span></div>
+            <div class="marca">
+                <div class="marca-icono">✚</div><span class="texto-marca">Gestión de Recursos Sanitarios</span>
+            </div>
         </header>
 
         <main class="contenido">
@@ -628,4 +875,5 @@
     </div>
 
 </body>
+
 </html>

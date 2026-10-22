@@ -1,4 +1,3 @@
-// IVY - SERVIDOR REST (versión NUBE: PostgreSQL en Supabase + JWT)
 
 var express = require("express");
 var jwt = require("jwt-simple");
@@ -6,12 +5,9 @@ var app = express();
 
 var conexion = require("./conexion_postgres.js");
 
-// ===== CONFIGURACIÓN JWT =====
-// En Render la clave viene de la variable de entorno CLAVE_JWT; en local se usa la de por defecto
 var CLAVE_JWT = process.env.CLAVE_JWT || "miSecretoMasOscuro";
 var DURACION_TOKEN = 60 * 60 * 1000;           // 1 hora en milisegundos
 
-// ===== MIDDLEWARE GENERAL =====
 app.use("/gestor", express.static("cliente_gestor"));
 app.use(express.json());
 
