@@ -509,7 +509,7 @@ function separarNombre(texto) {
    ===================================================================== */
 function EnviarReservasMinisterio() {
     console.log("HE PULSADO ENVIAR RESERVAS");
-    
+
     mensajeMinisterio("Obteniendo las reservas...");
 
     // 1. Pedimos todos los recursos (nuestro servidor: lleva token)
@@ -912,7 +912,7 @@ Añade un botón que al pulsarlo devuelva un mensaje con el número de remesas/s
 área en la base de datos del Ministerio.
 */
 
-/*
+
 function ContarArea() {
 
     var idArea = document.getElementById("id_area_buscar").value;
@@ -921,65 +921,51 @@ function ContarArea() {
     .then(function(respuesta){
         return respuesta.json();
     })
-    .then(function(contenido){
-
-        var envios = [];
-
-        if(Array.isArray(contenido)){
-            envios = contenido;
-        }
-        else{
-            envios = Object.values(contenido);
-        }
+    .then(function(envios){
 
         var contador = 0;
 
         envios.forEach(function(envio){
 
-            if(Number(envio.id_area) === Number(idArea)){
+            if(envio.id_area == idArea){
                 contador++;
             }
 
         });
 
-        var nombreArea = AREAS[idArea] || "Área desconocida";
+        alert("Hay " + contador + " envíos");
 
-        alert("Existen " + contador +
-              " registros de " + nombreArea);
+    })
+    .catch(function(error){
+
+        alert("Error al obtener los datos del Ministerio");
+
     });
 
 }
 
-*/
+
+
 
 /*
 Añade un boton que al pulsarlo muestre cuantas reservas finalizadas se han subido a la base de datos del
 Ministerio de tu id_area
 */
 
-/*
+
 function ReservasFinalizadas(){
 
     fetch(URL_MINISTERIO)
     .then(function(respuesta){
         return respuesta.json();
     })
-    .then(function(contenido){
-
-        var envios = [];
-
-        if(Array.isArray(contenido)){
-            envios = contenido;
-        }
-        else{
-            envios = Object.values(contenido);
-        }
+    .then(function(envios){
 
         var total = 0;
 
         envios.forEach(function(envio){
 
-            if(Number(envio.id_area) === MI_ID_AREA){
+            if(envio.id_area == MI_ID_AREA){
 
                 envio.datos.forEach(function(reserva){
 
@@ -993,11 +979,71 @@ function ReservasFinalizadas(){
 
         });
 
-        alert("Hay " + total +
-              " reservas finalizadas de " +
-              AREAS[MI_ID_AREA]);
+        alert("Hay " + total + " reservas finalizadas");
+
+    })
+    .catch(function(error){
+
+        alert("Error al obtener los datos del Ministerio");
 
     });
 
 }
+
+
+
+
+
+
+/*
+CONTENIDO TIENE UNA PINTA PARECIDA A ESTA
+
+[
+    {
+        id: 5351,
+        id_area: 13,
+        fecha: "2026-10-14",
+
+        datos: [
+            {
+                nombre: "Víctor",
+                apellidos: "Sánchez",
+                categoria: "Ecógrafos",
+                horas_estimadas: 2,
+                fec_pet: "2026-02-21",
+                fec_ini: "2026-02-21",
+                fecha_fin: "2026-02-21"
+            },
+
+            {
+                nombre: "Marina",
+                apellidos: "Sánchez",
+                categoria: "Pulsioxímetros",
+                horas_estimadas: 4,
+                fec_pet: "2026-02-21",
+                fec_ini: "2026-02-21",
+                fecha_fin: "1970-01-01"
+            }
+        ]
+    },
+
+    {
+        id: 5352,
+        id_area: 16,
+        fecha: "2026-10-14",
+
+        datos: [
+            {
+                nombre: "Cristina",
+                apellidos: "González",
+                categoria: "Termómetros",
+                horas_estimadas: 2,
+                fec_pet: "2026-03-20",
+                fec_ini: "2026-03-20",
+                fecha_fin: "2026-03-20"
+            }
+        ]
+    }
+]
+
 */
