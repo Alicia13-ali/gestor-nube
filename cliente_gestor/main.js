@@ -508,6 +508,8 @@ function separarNombre(texto) {
    (respuestas === lista.length), entonces hacemos el único POST.
    ===================================================================== */
 function EnviarReservasMinisterio() {
+    console.log("HE PULSADO ENVIAR RESERVAS");
+    
     mensajeMinisterio("Obteniendo las reservas...");
 
     // 1. Pedimos todos los recursos (nuestro servidor: lleva token)
