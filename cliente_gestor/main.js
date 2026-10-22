@@ -798,9 +798,7 @@ function cargarRanking() {
                         return;                     // reserva incorrecta → no se cuenta
                     }
 
-                    // >>> AQUÍ se FILTRA si en el examen piden contar solo algunas reservas
-                    //     (de un sanitario, de una categoría, de unas fechas...):
-                    //     if (d.nombre !== "Carlos") return;
+                    // AQUÍ se FILTRA 
 
                     var clave = claveReserva(area, d);
                     if (vistas[clave]) {            // ya contada → no se suma otra vez
@@ -945,7 +943,7 @@ function PorcentajeFinalizadas(){
             porcentaje = (finalizadas / total) * 100;
         }
 
-        var mensaje = "De las reservas de ese área, el " + porcentaje.toFixed(2) + " están finalizadas"
+        var mensaje = "De las reservas de ese área, el " + porcentaje.toFixed(2) + "% están finalizadas"
             
         alert(mensaje);
         mensajeMinisterio(mensaje);
