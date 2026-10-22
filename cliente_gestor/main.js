@@ -1,9 +1,3 @@
-// rest.get(url, callback) --> leer datos
-// rest.post(url, body, callback) --> crear datos
-// rest.put(url, body, callback) --> modificar datos
-// rest.delete(url, callback) --> borrar datos
-// function callback(estado, respuesta) {...} --> se ejecuta cuando el servidor responde
-
 // Variables globales
 var idGestor = null;      // identifica al usuario logueado
 var gestorInfo = null;    // datos del gestor que está usando la app
@@ -12,7 +6,7 @@ var recursoActual = null; // recurso que estamos usando
 var token = null;         // P3: token JWT que nos da el servidor al hacer login
 
 
-/* P3 - JWT: funciones auxiliares  */
+/* P3 - JWT  */
 
 // Añade el token a una URL:
 // "/api/categorias"            → "/api/categorias?token=XXXX"
@@ -94,7 +88,7 @@ function Registrar() {
     var usuario = document.getElementById("reg_usuario").value;
     var password = document.getElementById("reg_password").value;
 
-    // ******* Si idGestor existe → estamos editando (PRIVADO: con token) *******
+    // Si idGestor existe → estamos editando (PRIVADO: con token) 
     if(idGestor !== null){
 
         rest.put(conToken("/api/gestores/" + idGestor),
@@ -408,21 +402,7 @@ function CargarResenyas(id){
 
 /*  P3 - PARTE 1: MINISTERIO DE SANIDAD
 
-   El Ministerio tiene un servicio REST EXTERNO (no es nuestro servidor):
        https://undefined.ua.es/telemedicina/api/datos
-
-     · POST → cada grupo sube TODAS sus reservas en UN SOLO envío:
-              { "id_area": 2, "fecha": "YYYY-MM-DD", "datos": [ reserva, reserva, ... ] }
-     · GET  → devuelve TODOS los envíos de TODOS los grupos.
-
-   Cada reserva que va dentro de "datos" tiene este formato (enunciado):
-       {
-         "nombre": "Carlos",            "apellidos": "Pérez",
-         "categoría": "Termómetros",    "horas_estimadas": 2,
-         "fec_pet": "YYYY-MM-DD HH:MM:SS",   ← fecha de petición (obligatoria)
-         "fec_ini": "YYYY-MM-DD HH:MM:SS",   ← fecha de inicio (puede ser null)
-         "fecha_fin": "YYYY-MM-DD HH:MM:SS"  ← fecha de fin   (puede ser null)
-       }
 
    Esta parte hace tres cosas:
      (a) ENVIAR nuestras reservas al Ministerio (un solo POST).
@@ -430,7 +410,7 @@ function CargarResenyas(id){
          (ni de los nuestros): todo registro incorrecto se descarta.
      (c) RANKING: contar las reservas válidas de cada área médica y
          mostrarlas ordenadas de mayor a menor en la vista principal.
-   ===================================================================== */
+    */
 
 var URL_MINISTERIO = "https://undefined.ua.es/telemedicina/api/datos";  // servicio del Ministerio
 var MI_ID_AREA = 2;                                                     // nuestra área: Anestesiología
@@ -447,9 +427,7 @@ var AREAS = {
 };
 
 
-/* ---------------------------------------------------------------------
-   FUNCIONES AUXILIARES
-   --------------------------------------------------------------------- */
+/* FUNCIONES AUXILIARES */
 
 // Pone un número con dos cifras: 5 → "05", 12 → "12"
 function dos(n) { return String(n).padStart(2, "0"); }
@@ -491,22 +469,8 @@ function separarNombre(texto) {
 }
 
 
-/* =====================================================================
-   (a) ENVIAR NUESTRAS RESERVAS AL MINISTERIO
-   ---------------------------------------------------------------------
-   Solo se usan los GET que YA EXISTÍAN en nuestro servidor
-   (no se crean servicios nuevos ni consultas nuevas a la base de datos):
-     1. GET /api/recursos               → todos los recursos (cada uno con su categoría)
-     2. GET /api/recursos/:id/reservas  → las reservas de cada recurso
-   Se juntan todas las reservas en un array y se hace UN SOLO POST.
-
-   ¿Por qué un contador ("respuestas")?
-   Las peticiones del paso 2 son ASÍNCRONAS: se lanzan todas a la vez y
-   responden en cualquier orden. No podemos hacer el POST justo después del
-   forEach porque en ese momento aún no ha llegado ninguna respuesta.
-   Por eso contamos las respuestas y, cuando han llegado TODAS
-   (respuestas === lista.length), entonces hacemos el único POST.
-   ===================================================================== */
+/* (a) ENVIAR NUESTRAS RESERVAS AL MINISTERIO
+ */
 function EnviarReservasMinisterio() {
     console.log("HE PULSADO ENVIAR RESERVAS");
 
@@ -547,9 +511,10 @@ function EnviarReservasMinisterio() {
                 if (s === 200 && Array.isArray(reservas)) {
                     // Transformamos cada reserva de NUESTRO formato al del MINISTERIO
                     reservas.forEach(function(r){
-                        // >>> AQUÍ es donde se FILTRA si en el examen piden enviar solo algunas
-                        //     reservas, p. ej. las de un sanitario:
-                        //     if (r.sanitario !== "Carlos Pérez") return;
+
+                        // ************** FILTRAR **************** 
+
+
                         var persona = separarNombre(r.sanitario);
                         datos.push({
                             "nombre": persona.nombre,
@@ -779,16 +744,14 @@ function claveReserva(area, d) {
 }
 
 
-/* =====================================================================
-   (c) RANKING DE RESERVAS POR ÁREA MÉDICA
-   ---------------------------------------------------------------------
+/* (c) RANKING DE RESERVAS POR ÁREA MÉDICA
    1. GET al Ministerio → todos los envíos de todos los grupos.
    2. Por cada envío: si es incorrecto, se descarta entero.
    3. Por cada reserva del envío: si es incorrecta, se descarta;
       si ya la habíamos contado (repetida), no se suma otra vez;
       si es correcta y nueva, se suma 1 a su área.
    4. Se pasa a array, se ordena de mayor a menor y se pinta la tabla.
-   ===================================================================== */
+*/
 function cargarRanking() {
     mensajeMinisterio("Cargando el ranking...");
 
@@ -880,7 +843,6 @@ function cargarRanking() {
 }
 
 // Pinta la tabla del ranking: posición (medallas para los 3 primeros), área y nº de reservas.
-// Nuestra área sale en negrita con "(nosotros)".
 function pintarRanking(ranking) {
     var medallas = ["🥇", "🥈", "🥉"];
     var html = "";
@@ -903,147 +865,5 @@ function pintarRanking(ranking) {
     document.getElementById("ranking_cuerpo").innerHTML = html;
 }
 
-// EXAMEN OTRO GRUPO
-
-/*
-Añade un input que permita escribir el id_area.
-
-Añade un botón que al pulsarlo devuelva un mensaje con el número de remesas/subidas realizadas para esa
-área en la base de datos del Ministerio.
-*/
 
 
-function ContarArea() {
-
-    var idArea = document.getElementById("id_area_buscar").value;
-
-    fetch(URL_MINISTERIO)
-    .then(function(respuesta){
-        return respuesta.json();
-    })
-    .then(function(envios){
-
-        var contador = 0;
-
-        envios.forEach(function(envio){
-
-            if(envio.id_area == idArea){
-                contador++;
-            }
-
-        });
-
-        alert("Hay " + contador + " envíos");
-
-    })
-    .catch(function(error){
-
-        alert("Error al obtener los datos del Ministerio");
-
-    });
-
-}
-
-
-
-
-/*
-Añade un boton que al pulsarlo muestre cuantas reservas finalizadas se han subido a la base de datos del
-Ministerio de tu id_area
-*/
-
-
-function ReservasFinalizadas(){
-
-    fetch(URL_MINISTERIO)
-    .then(function(respuesta){
-        return respuesta.json();
-    })
-    .then(function(envios){
-
-        var total = 0;
-
-        envios.forEach(function(envio){
-
-            if(envio.id_area == MI_ID_AREA){
-
-                envio.datos.forEach(function(reserva){
-
-                    if(reserva.fecha_fin){
-                        total++;
-                    }
-
-                });
-
-            }
-
-        });
-
-        alert("Hay " + total + " reservas finalizadas");
-
-    })
-    .catch(function(error){
-
-        alert("Error al obtener los datos del Ministerio");
-
-    });
-
-}
-
-
-
-
-
-
-/*
-CONTENIDO TIENE UNA PINTA PARECIDA A ESTA
-
-[
-    {
-        id: 5351,
-        id_area: 13,
-        fecha: "2026-10-14",
-
-        datos: [
-            {
-                nombre: "Víctor",
-                apellidos: "Sánchez",
-                categoria: "Ecógrafos",
-                horas_estimadas: 2,
-                fec_pet: "2026-02-21",
-                fec_ini: "2026-02-21",
-                fecha_fin: "2026-02-21"
-            },
-
-            {
-                nombre: "Marina",
-                apellidos: "Sánchez",
-                categoria: "Pulsioxímetros",
-                horas_estimadas: 4,
-                fec_pet: "2026-02-21",
-                fec_ini: "2026-02-21",
-                fecha_fin: "1970-01-01"
-            }
-        ]
-    },
-
-    {
-        id: 5352,
-        id_area: 16,
-        fecha: "2026-10-14",
-
-        datos: [
-            {
-                nombre: "Cristina",
-                apellidos: "González",
-                categoria: "Termómetros",
-                horas_estimadas: 2,
-                fec_pet: "2026-03-20",
-                fec_ini: "2026-03-20",
-                fecha_fin: "2026-03-20"
-            }
-        ]
-    }
-]
-
-*/
