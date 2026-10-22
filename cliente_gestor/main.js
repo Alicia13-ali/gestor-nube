@@ -469,7 +469,8 @@ function separarNombre(texto) {
 }
 
 
-/* (a) ENVIAR NUESTRAS RESERVAS AL MINISTERIO
+/* 
+    (a) ENVIAR NUESTRAS RESERVAS AL MINISTERIO
  */
 function EnviarReservasMinisterio() {
     console.log("HE PULSADO ENVIAR RESERVAS");
@@ -943,7 +944,7 @@ function PorcentajeFinalizadas(){
             porcentaje = (finalizadas / total) * 100;
         }
 
-        var mensaje = "De las reservas de ese área, el " + porcentaje.toFixed(2) + "% están finalizadas"
+        var mensaje = "De las reservas de ese área ( " + AREAS[idArea] + "), el " + porcentaje.toFixed(2) + "% están finalizadas"
             
         alert(mensaje);
         mensajeMinisterio(mensaje);
