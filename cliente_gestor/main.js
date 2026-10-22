@@ -444,9 +444,6 @@ function mensajeMinisterio(texto) {
     document.getElementById("ministerio_estado").innerText = texto;
 }
 
-// Convierte una fecha de nuestra base de datos (viene como "2026-03-02T08:00:00.000Z")
-// al formato que pide el Ministerio: "YYYY-MM-DD HH:MM:SS".
-// Si la reserva no tiene esa fecha (null) o la fecha es inválida → devuelve null.
 function formatearFecha(f) {
     if (!f) return null;                     // sin fecha (p. ej. aún no ha empezado)
     var d = new Date(f);
@@ -455,12 +452,7 @@ function formatearFecha(f) {
            dos(d.getHours()) + ":" + dos(d.getMinutes()) + ":" + dos(d.getSeconds());
 }
 
-// Nuestro GET de reservas devuelve el sanitario en UN solo texto ("Carlos Pérez García"),
-// pero el Ministerio lo pide separado en "nombre" y "apellidos".
-// Regla: lo que va antes del PRIMER espacio es el nombre; el resto, los apellidos.
-//   "Carlos Pérez García" → { nombre: "Carlos", apellidos: "Pérez García" }
-// Limitación: con nombres compuestos ("Juan Carlos Pérez") el nombre sería solo "Juan".
-// (No se puede hacer mejor sin crear servicios o consultas nuevas.)
+
 function separarNombre(texto) {
     var s = (texto || "").trim();            // si viene null/undefined → ""
     var espacio = s.indexOf(" ");            // posición del primer espacio (-1 si no hay)
@@ -604,14 +596,6 @@ function enviarAlMinisterio(datos, noEnviadas) {
 
 
 /* (b) VALIDAR LOS DATOS
-   El GET del Ministerio trae datos de TODOS los grupos y puede haber de todo:
-   campos vacíos, fechas mal escritas, áreas que no existen, envíos repetidos...
-   NO nos fiamos: cada envío y cada reserva se comprueba antes de contarla.
-
-   Las funciones "motivo..." devuelven:
-       null              → el dato es CORRECTO
-       "texto del fallo" → el dato es INCORRECTO, y el texto dice POR QUÉ
-   (así en la consola se ve el motivo de cada descarte)
  */
 
 // ¿Es un texto con algo escrito? ("" o "   " o un número → false)
@@ -624,13 +608,6 @@ function esFechaVacia(x) {
     return x === null || x === undefined || x === "";
 }
 
-// Lee una fecha en texto y la convierte en un objeto Date.
-// Acepta: "2026-03-02", "2026-03-02 09:00:00", "2026-03-02T09:00:00.000Z"
-// Devuelve null si NO es una fecha real:
-//   "hola"        → null (no tiene forma de fecha)
-//   "2026-02-31"  → null (el 31 de febrero no existe)
-//   "2026-13-01"  → null (no hay mes 13)
-//   "1900-01-01"  → null (fecha absurda para una reserva)
 function leerFecha(texto) {
     if (!esTextoNoVacio(texto)) return null;
 
@@ -743,14 +720,8 @@ function claveReserva(area, d) {
 }
 
 
-/* (c) RANKING DE RESERVAS POR ÁREA MÉDICA
-   1. GET al Ministerio → todos los envíos de todos los grupos.
-   2. Por cada envío: si es incorrecto, se descarta entero.
-   3. Por cada reserva del envío: si es incorrecta, se descarta;
-      si ya la habíamos contado (repetida), no se suma otra vez;
-      si es correcta y nueva, se suma 1 a su área.
-   4. Se pasa a array, se ordena de mayor a menor y se pinta la tabla.
-*/
+/* (c) RANKING DE RESERVAS POR ÁREA MÉDICA */
+
 function cargarRanking() {
     mensajeMinisterio("Cargando el ranking...");
 
@@ -820,8 +791,7 @@ function cargarRanking() {
                         "| Descartadas:", nDescartados);
             console.table(descartes);               // tabla: motivo → cuántas veces
 
-            // 4. Pasar de objeto { 2: 111, 3: 80 } a array [{area:2,total:111}, ...] y ordenar
-            //    de MAYOR a MENOR (si empatan, por número de área)
+            
             var ranking = Object.keys(totales)
                 .map(function(a){ return { area: Number(a), total: totales[a] }; })
                 .sort(function(a, b){ return b.total - a.total || a.area - b.area; });
@@ -944,7 +914,7 @@ function PorcentajeFinalizadas(){
             porcentaje = (finalizadas / total) * 100;
         }
 
-        var mensaje = "De las reservas de ese área ( " + AREAS[idArea] + "), el " + porcentaje.toFixed(2) + "% están finalizadas"
+        var mensaje = "De las reservas del área 1 (" + AREAS[idArea] + "), el " + porcentaje.toFixed(2) + "% están finalizadas"
             
         alert(mensaje);
         mensajeMinisterio(mensaje);
